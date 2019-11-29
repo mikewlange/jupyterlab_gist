@@ -35,6 +35,7 @@ export
 interface IGistInfoMetadata extends  JSONObject {
   gist_url?: string;
   gist_id?: string;
+  githubPersonalAccessToken: XXX
 }
 
 export
@@ -146,17 +147,10 @@ function activate(app: JupyterLab) {
   app.docRegistry.addWidgetExtension('Notebook', new GistButtonExtension());
 };
 
-function postGistRequest(data: any, gist_id: string) {
-  let url = "https://api.github.com/gists/";
+function postGistRequest(data: any, gist_id: string, pat: personalAccessToken) {
+  let url = "https://api.github.com/gists?oauth_token=XXXX";
   let method = "POST";
 
-  // TODO: as anonymous user I don't think it's possible
-  // at the moment to update the current gist.
-  // We need to add authentication.
-  //if(gist_id != null){
-  //  url += "/" + gist_id;
-  //  method = "PATCH";
-  //}
 
   return fetch(url, {
     body: JSON.stringify(data),
